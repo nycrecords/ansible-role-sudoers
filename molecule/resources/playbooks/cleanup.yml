@@ -10,11 +10,3 @@
         timeout: 1
       register: wait_result
       ignore_errors: true
-
-    - name: Unregister system if available
-      include_role:
-        name: ansible-role-rhsm
-      vars:
-        rhsm_username: "{{ omit }}"
-        rhsm_unregister: true
-      when: wait_result is success
