@@ -2,7 +2,6 @@
 dependency:
   name: galaxy
   options:
-    role-file: molecule/resources/requirements.yml
     roles-path: molecule/resources/roles
 driver:
   name: ec2

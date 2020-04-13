@@ -69,6 +69,15 @@ sudoers_files:
           - "ALL"
         commands:
           - "ALL"
+      - users:
+          - "ec2-user"
+        hosts:
+          - "ALL"
+        operators:
+          - "ALL"
+        commands:
+          - "ALL"
+
     include_directories:
       - "/etc/sudoers.d"
     # include_files: []

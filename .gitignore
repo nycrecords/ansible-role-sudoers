@@ -1,0 +1,2 @@
+pytestdebug.log
+molecule/resources/playbooks/sudoers-backups/*
