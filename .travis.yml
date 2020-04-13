@@ -20,6 +20,7 @@ script:
 - molecule create --scenario-name aws
 - molecule converge --scenario-name aws
 - molecule verify --scenario-name aws
+after_script:
 - molecule destroy --scenario-name aws
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
