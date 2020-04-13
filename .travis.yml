@@ -1,0 +1,25 @@
+language: python
+python:
+- 3.7
+env:
+  global:
+  - MOLECULE_DEBUG: 'true'
+  - ROLE_NAME: sudoers
+  - EC2_REGION: us-east-1
+  - secure: P+zTENcZbMgpF/IJhJBWVaD3xhxtwi2z5/qRX7bjaoBbTR8Fv/QMT0cz5pqOHD3+YqwyvbZvnxJRp94BLghd9x87FP/Xjne2fpnIA2ElmjDdZxI0DqeldJrXS7MmK74LvHgoSZOyNDN0hbYz+unVkZOydcQ+eInE/AlqJGoaPDWLnYS9NuQ2mYE2XHDdmTJySu38RUxyMm7qK0yR0g3ynSvoy/OOobrgYUOYDdh27qvtR5sZdFIe0iI24Ba5GKt4odNvWBlIzpXtbWuaf1qOKDL3BbRn+s6UherhigEftvmqi5NVdpDGWBTPwWTdizDcxq8BKkXd/DoovIi+5c4v8yCOahd2cH9si/cW2/wM0lh7vJoWW2kHjWYIEx2mZCqJb2aO0q3jsUQ2e50nm11D8S/ayFghicr5opPhDLwwVv5ufkl8RIh2YQoDXpC1XvdbNTWNHu0K1WtpQvNHOQFZOxsAtVTnDKDIjzUoZsjKYcIVhT3BueiQLr/lNgynfchE/09sf/oV20NxotLMpTtc5h5sZT/S2+A3ZKJYogisCZx2QsNRqv9pSKD1KYejwYlm+PGwyf43DW/eTT1k/HQy5A62WyXzkOXTe3W0b7u8m2TTmhsKEEWE8M4RbosaEple9g9Bm83JEbcZlV7wGKh/8KbuIcEuIhGyzCObD7EVCZ4=
+  - secure: JmvUqpsMYJkWUXCVYWj2/N/umcBNW5DaNHeiUL085FIl2HVlYr2P7z3T5MWmXXGrcbhGF7BjuZSqMhkGN7DD0XSCHn7F4qtpzrE4DXMAKdAXFI+Pe2u3kTcNp9cjj2dOMtnyLl+UxQE/DDIpUdrqzfpGUY4fZE/0Z7DuoQpllea16uTf3qErNCWS3YxqNdJIHSkntBpLW71Kbu1HZTmIRdQGDs+vs75T2hSN0/ldmsKJaTSJVGLTQ3viBhtQLhkgMRoAVZy+qY4GAMBGEzWALe+xHhOxasbxLKFl/nbIdkBjJLrJIO/xoFIVWNsqOouPQ9igRTv7qWbcndg1OMwCjxgbB/N+qeF/zOgUyoXKfkljji0eKDpGMAdZDwdLphbzfgNi5l0W9EHaCx1j35ZIn8JT8jk5gfXOVdXnRs4O4UCv+Ajo9/fAEAcj/QRk/HndzH27I9IrNYGJi1PVHdAy0gwMrxsOmiYWUzfOEn3jZji1vLdbNO0sMuQt2qS2z+lT8VQRVHFJVo4HZ0dmrbluhEOXl0OWRvscb42Fh22gJuIWQCXDf5reMVP1RDDZwh6aTqwc0cs6gmEHNbwf42W5JF00WYq6u1U0TvlcxP3cDPLKjAcLCFrQWaWCPm1Ub2leqiYa5PPAEcbHYTGhnEvKX4SVZPaWKYF5cd6DG2f+0c8=
+install:
+- pip install pipenv
+- pipenv install
+- echo $AWS_ACCESS_KEY
+- aws configure set aws_access_key_id $AWS_ACCESS_KEY
+- aws configure set aws_secret_access_key $AWS_SECRET_KEY
+- aws configure set default.region $EC2_REGION
+- aws configure list
+script:
+- molecule create --scenario-name aws
+- molecule converge --scenario-name aws
+- molecule verify --scenario-name aws
+- molecule destroy --scenario-name aws
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

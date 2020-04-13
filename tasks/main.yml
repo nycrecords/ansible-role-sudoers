@@ -58,6 +58,7 @@
   when:
     - "sudoers_backup | bool"
     - "sudoers_backup_path != ''"
+  become: false
 
 - name: "Backup sudoers files"
   fetch:
